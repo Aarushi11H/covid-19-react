@@ -7,7 +7,7 @@ if(process.env.NODE_ENV==="production")
     app.use(express.static('client/covid-19/build'))
     const path = require('path')
     app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'client','covid-19','build','index.html'))
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
 
