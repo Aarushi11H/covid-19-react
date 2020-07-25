@@ -273,8 +273,9 @@ const Body_html = () => {
                                                             <tr>
                                                                 <td>{district.name}</td>
                                                                 <td>{district.active}</td>
-                                                                <td>{district.deaths}</td>
+                                                                
                                                                 <td>{district.recovered}</td>
+                                                                <td>{district.deaths}</td>
                                                             </tr>
 
                                                         )
