@@ -235,7 +235,7 @@ const Body_html = () => {
                                                     <img src="https://cdn.glitch.com/20457a5a-d27c-489c-a282-348e43dc34e6%2Ficon-infected.png?v=1590593297316" className="img-reponsive mx-auto" width="70vw" />
                                                     <div className="card-body text-white">
                                                         <h2 className="d-flex justify-content-center">
-                                                            Active Cases
+                                                            Total active Cases
                         </h2>
                                                         <span id="active" className="d-flex justify-content-center" style={{ fontSize: "4vh" }}>{status.active}</span>
                                                     </div>
@@ -246,7 +246,7 @@ const Body_html = () => {
                                                     <img src="https://cdn.glitch.com/20457a5a-d27c-489c-a282-348e43dc34e6%2Ficon-inactive.png?v=1590593297316" className="img-reponsive mx-auto" width="70vw" />
                                                     <div className="card-body text-white">
                                                         <h2 className="d-flex justify-content-center">
-                                                            Recovered
+                                                            Total recovered
                         </h2>
                                                         <span id="inactive" className="d-flex justify-content-center" style={{ fontSize: "4vh" }}>{status.recovered}</span>
                                                     </div>
@@ -273,10 +273,10 @@ const Body_html = () => {
                                                             return (
                                                                 <tr>
                                                                     <td>{district.name}</td>
-                                                                    <td style={{ color: "#80bfff" }}>{district.active}{district.active<=0?<i className="ml-2 fas fa-stop-circle"></i>:<i className="ml-2 fas fa-sort-up"></i>}</td>
+                                                                    <td style={{ color: "#80bfff" }}>{district.active}{district.active <= 0 ? <i className="ml-2 fas fa-stop-circle"></i> : <i className="ml-2 fas fa-sort-up"></i>}</td>
 
-                                                                    <td style={{ color: "#0f0" }}>{district.recovered}{district.recovered<=0?<i className="ml-2 fas fa-stop-circle"></i>:<i className="ml-2 fas fa-sort-up"></i>}</td>
-                                                                    <td style={{ color: "#dc3545" }}>{district.deaths}{district.deaths<=0?<i className="ml-2 fas fa-stop-circle"></i>:<i className="ml-2 fas fa-sort-up"></i>}</td>
+                                                                    <td style={{ color: "#0f0" }}>{district.recovered}{district.recovered <= 0 ? <i className="ml-2 fas fa-stop-circle"></i> : <i className="ml-2 fas fa-sort-up"></i>}</td>
+                                                                    <td style={{ color: "#dc3545" }}>{district.deaths}{district.deaths <= 0 ? <i className="ml-2 fas fa-stop-circle"></i> : <i className="ml-2 fas fa-sort-up"></i>}</td>
                                                                 </tr>
 
                                                             )
