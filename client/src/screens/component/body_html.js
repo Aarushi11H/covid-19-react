@@ -266,7 +266,7 @@ const Body_html = () => {
                                         <div className="row mt-2 text-center ">
                                             <div className="col-12 d-flex justify-content-center">
                                             <table className="table table-dark table-striped" >
-                                                <tr><th>City Name</th><th>Active</th><th>Deaths</th><th>Recovered</th></tr>
+                                                <tr><th>City Name</th><th>Active</th><th>Recovered</th><th>Deaths</th></tr>
                                                 {
                                                     district_wise.map(district=>{
                                                         return(
