@@ -4,6 +4,8 @@ const Body_html = () => {
     const [country, setCountry] = useState([])
     const [state, setState] = useState([])
     const [status, setStatus] = useState({})
+    const [state_district, setState_district] = useState({})
+    const [district_wise,setDistricwise] = useState([])
     useEffect(() => {
         fetch("https://api.covid19api.com/summary").then(res => res.json()).then(data => {
             sessionStorage.setItem("covid", JSON.stringify(data.Countries));
@@ -50,7 +52,7 @@ const Body_html = () => {
 
         })
             .catch(err => {
-                window.location.reload();
+                // window.location.reload();
             })
     }, [])
 
@@ -106,11 +108,54 @@ const Body_html = () => {
     useEffect(() => {
         fetch("https://api.covidindiatracker.com/state_data.json").then(res => res.json()).then(data => {
             setState(data);
-            setStatus(data[0]);
         })
+
     }, [])
 
+    useEffect(() => {
+        fetch("https://api.covid19india.org/state_district_wise.json").then(res => res.json()).then(data => {
+            setState_district(data);
+            
+        }).catch(err=>{
+            console.log(err)
+        })
 
+    }, [])
+   
+    const changeTable = (name) =>{
+
+        // console.log(state_district[name].districtData)
+        // console.log(state_district[name].districtData[Object.keys(state_district[name].districtData)[0]].active)
+        var y = [];
+        var x = Object.keys(state_district[name].districtData);
+        for (let index = 0; index < x.length; index++) {
+            y.push({"name":x[index],"active":state_district[name].districtData[x[index]].active,"deaths":state_district[name].districtData[x[index]].deceased
+        ,"recovered":state_district[name].districtData[x[index]].recovered
+        })
+        }
+        setDistricwise(y)
+        console.log(district_wise);
+    }
+      //  
+        
+        // Object.keys(state_district_wise).map(district => {
+        //     console.log(district)
+        //     return(
+        //         <tr>
+
+        //             <td>{district}</td>
+        //             <td>{state_district_wise.districtData.district.active}</td>
+
+        //             <td>{state_district_wise.districtData.district.deceased}</td>
+        //             <td>{state_district_wise.districtData.district.recovered}</td>
+        //         </tr>
+        //         )
+        // })
+
+    
+    
+         
+     
 
     return (
         <>
@@ -121,12 +166,12 @@ const Body_html = () => {
                 <div className="row">
                     <div className="col-sm-2 border-right border-bottom">
                         <ul className="navbar nav nav-pills" id="change">
-                        <li className="nav-item mb-1"><a className="nav-link active" href="#stats">Stats</a></li>
-                        <li className="nav-item mb-1"><a className="nav-link" href="#region">States and Union Territory Data</a></li>
-                        <li className="nav-item mb-1"><a className="nav-link" href="#Measures">Measures</a></li>
-                        <li className="nav-item mb-1"><a className="nav-link" href="#awareness">Awareness</a></li>
+                            <li className="nav-item mb-1"><a className="nav-link active" href="#stats">Stats</a></li>
+                            <li className="nav-item mb-1"><a className="nav-link" href="#region">States and Union Territory Data</a></li>
+                            <li className="nav-item mb-1"><a className="nav-link" href="#Measures">Measures</a></li>
+                            <li className="nav-item mb-1"><a className="nav-link" href="#awareness">Awareness</a></li>
 
-                    </ul></div>
+                        </ul></div>
                     <div className="col-sm-8 border-right">
 
                         <div className="row mt-4 pb-4 border-bottom" >
@@ -167,17 +212,21 @@ const Body_html = () => {
                                     States and union territory wise data
                 </h1>
                                 <div className="row container-fluid" ng-app="state-app" id="app1">
-                                    <select className="form-control justify-content-center" onChange={(e) => {  setStatus(JSON.parse(e.target.value)) }}>
+                                    <select className="form-control justify-content-center" onChange={(e) => { setStatus(JSON.parse(e.target.value)); changeTable(JSON.parse(e.target.value).name) }}>
+                                        <option selected disabled>Select state / union territory</option>
                                         {
                                             state.map(state => {
+
                                                 return (
-                                                    <option value={JSON.stringify({"active": state.active, "recovered": state.recovered, "deaths": state.deaths}) }>{state.state}</option>
+                                                    <option value={JSON.stringify({
+                                                        "active": state.active, "recovered": state.recovered, "deaths": state.deaths, "name": state.state
+                                                    })}>{state.state}</option>
                                                 )
                                             })
                                         }
 
                                     </select>
-                                    <div className="container">
+                                    <div className="container-fluid">
 
                                         <div className="row mt-2">
                                             <div className="col-sm-4 mt-2 mx-auto">
@@ -214,11 +263,29 @@ const Body_html = () => {
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="row mt-2 text-center ">
+                                            <div className="col-12 d-flex justify-content-center">
+                                            <table className="table table-dark table-striped" >
+                                                <tr><th>City Name</th><th>Active</th><th>Deaths</th><th>Recovered</th></tr>
+                                                {
+                                                    district_wise.map(district=>{
+                                                        return(
+                                                            <tr>
+                                                                <td>{district.name}</td>
+                                                                <td>{district.active}</td>
+                                                                <td>{district.deaths}</td>
+                                                                <td>{district.recovered}</td>
+                                                            </tr>
+
+                                                        )
+                                                    })
+                                                }
+                                            </table>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
-                                <div className="row">
 
-                                </div>
                             </div>
                         </div>
                         <div className="row mt-4 pb-4 border-bottom">
