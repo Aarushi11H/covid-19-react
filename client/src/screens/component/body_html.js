@@ -272,10 +272,10 @@ const Body_html = () => {
                                                         return(
                                                             <tr>
                                                                 <td>{district.name}</td>
-                                                                <td>{district.active}</td>
+                                                                <td style={{color:"#80bfff"}}>{district.active}</td>
                                                                 
-                                                                <td>{district.recovered}</td>
-                                                                <td>{district.deaths}</td>
+                                                                <td style={{color:"#0f0"}}>{district.recovered}</td>
+                                                                <td style={{color:"#ff751a"}}>{district.deaths}</td>
                                                             </tr>
 
                                                         )
