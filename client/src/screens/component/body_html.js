@@ -5,7 +5,7 @@ const Body_html = () => {
     const [state, setState] = useState([])
     const [status, setStatus] = useState({})
     const [state_district, setState_district] = useState({})
-    const [district_wise,setDistricwise] = useState([])
+    const [district_wise, setDistricwise] = useState([])
     useEffect(() => {
         fetch("https://api.covid19api.com/summary").then(res => res.json()).then(data => {
             sessionStorage.setItem("covid", JSON.stringify(data.Countries));
@@ -115,47 +115,48 @@ const Body_html = () => {
     useEffect(() => {
         fetch("https://api.covid19india.org/state_district_wise.json").then(res => res.json()).then(data => {
             setState_district(data);
-            
-        }).catch(err=>{
+
+        }).catch(err => {
             console.log(err)
         })
 
     }, [])
-   
-    const changeTable = (name) =>{
+
+    const changeTable = (name) => {
 
         // console.log(state_district[name].districtData)
         // console.log(state_district[name].districtData[Object.keys(state_district[name].districtData)[0]].active)
         var y = [];
         var x = Object.keys(state_district[name].districtData);
         for (let index = 0; index < x.length; index++) {
-            y.push({"name":x[index],"active":state_district[name].districtData[x[index]].active,"deaths":state_district[name].districtData[x[index]].deceased
-        ,"recovered":state_district[name].districtData[x[index]].recovered
-        })
+            y.push({
+                "name": x[index], "active": state_district[name].districtData[x[index]].active, "deaths": state_district[name].districtData[x[index]].deceased
+                , "recovered": state_district[name].districtData[x[index]].recovered
+            })
         }
         setDistricwise(y)
         console.log(district_wise);
     }
-      //  
-        
-        // Object.keys(state_district_wise).map(district => {
-        //     console.log(district)
-        //     return(
-        //         <tr>
+    //  
 
-        //             <td>{district}</td>
-        //             <td>{state_district_wise.districtData.district.active}</td>
+    // Object.keys(state_district_wise).map(district => {
+    //     console.log(district)
+    //     return(
+    //         <tr>
 
-        //             <td>{state_district_wise.districtData.district.deceased}</td>
-        //             <td>{state_district_wise.districtData.district.recovered}</td>
-        //         </tr>
-        //         )
-        // })
+    //             <td>{district}</td>
+    //             <td>{state_district_wise.districtData.district.active}</td>
 
-    
-    
-         
-     
+    //             <td>{state_district_wise.districtData.district.deceased}</td>
+    //             <td>{state_district_wise.districtData.district.recovered}</td>
+    //         </tr>
+    //         )
+    // })
+
+
+
+
+
 
     return (
         <>
@@ -211,8 +212,8 @@ const Body_html = () => {
                                 <h1 className="text-danger">
                                     States and union territory wise data
                 </h1>
-                                <div className="row container-fluid" ng-app="state-app" id="app1">
-                                    <select className="form-control justify-content-center" onChange={(e) => { setStatus(JSON.parse(e.target.value)); changeTable(JSON.parse(e.target.value).name) }}>
+                                <div className="row" id="app1">
+                                    <select className="form-control justify-content-center mr-3 ml-3" onChange={(e) => { setStatus(JSON.parse(e.target.value)); changeTable(JSON.parse(e.target.value).name) }}>
                                         <option selected disabled>Select state / union territory</option>
                                         {
                                             state.map(state => {
@@ -228,7 +229,7 @@ const Body_html = () => {
                                     </select>
                                     <div className="container-fluid">
 
-                                        <div className="row mt-2">
+                                        <div className="row mt-2 d-flex justify-content-between">
                                             <div className="col-sm-4 mt-2 mx-auto">
                                                 <div className="card bg-info">
                                                     <img src="https://cdn.glitch.com/20457a5a-d27c-489c-a282-348e43dc34e6%2Ficon-infected.png?v=1590593297316" className="img-reponsive mx-auto" width="70vw" />
@@ -264,26 +265,26 @@ const Body_html = () => {
                                             </div>
                                         </div>
                                         <div className="row mt-2 text-center ">
-                                            <div className="col-12 d-flex justify-content-center">
-                                            <table className="table table-dark table-striped" >
-                                                <tr><th>City Name</th><th>Active</th><th>Recovered</th><th>Deaths</th></tr>
-                                                {
-                                                    district_wise.map(district=>{
-                                                        return(
-                                                            <tr>
-                                                                <td>{district.name}</td>
-                                                                <td style={{color:"#80bfff"}}>{district.active}</td>
-                                                                
-                                                                <td style={{color:"#0f0"}}>{district.recovered}</td>
-                                                                <td style={{color:"#ff751a"}}>{district.deaths}</td>
-                                                            </tr>
+                                            <div className="col d-flex justify-content-center mx-auto">
+                                                <table className="table table-dark table-striped mx-auto" >
+                                                    <tr><th>City Name</th><th>Active</th><th>Recovered</th><th>Deaths</th></tr>
+                                                    {
+                                                        district_wise.map(district => {
+                                                            return (
+                                                                <tr>
+                                                                    <td>{district.name}</td>
+                                                                    <td style={{ color: "#80bfff" }}>{district.active}</td>
 
-                                                        )
-                                                    })
-                                                }
-                                            </table>
+                                                                    <td style={{ color: "#0f0" }}>{district.recovered}</td>
+                                                                    <td style={{ color: "#ff751a" }}>{district.deaths}</td>
+                                                                </tr>
+
+                                                            )
+                                                        })
+                                                    }
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                 </div>
 
